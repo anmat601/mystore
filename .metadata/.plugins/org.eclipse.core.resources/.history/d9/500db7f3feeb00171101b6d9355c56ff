@@ -1,0 +1,83 @@
+package mystore.application;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import mystore.model.StoreDetails;
+import mystore.model.ItemData;
+import mystore.model.StockDetails;
+import mystore.service.StockManagement;
+import mystore.service.BillingManagement;
+import mystore.service.ItemManagement;
+
+
+
+public class MyStoreApplication {
+
+	public static void main(String[] args) {
+
+		BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter the Vendor Name");
+		try {
+				String vendorName =br.readLine();
+
+			StockManagement stockManagement =new StockManagement();
+
+			List<String> itemsToBeRefilled = stockManagement.ItemsToBeRefilled(vendorName);
+
+			System.out.println("List of Items to be refilled by" +" " +vendorName+":");
+
+			for(int i=0;i<itemsToBeRefilled.size();i++)
+			{
+				System.out.println(itemsToBeRefilled.get(i));
+			}
+		
+			
+			/*		ItemManagement itemManagement =new ItemManagement();
+			ItemData pencil =new ItemData();
+			ItemData sugar =new ItemData();
+
+			StockDetails pencilStockDetails = new StockDetails();
+
+			pencil.setItemName("pencil");
+		//	pencil.setPrice(5);
+			pencil.setStockDetails(pencilStockDetails);
+			pencilStockDetails.setAvailableStock(100);
+			pencilStockDetails.setMinimumExpectedStock(50);
+			pencilStockDetails.setSupplier("GrocerySupplier.com");
+
+			//storeDetails.getItemList().add(pencil);
+
+			Boolean ifItemAdded =itemManagement.addItem(pencil);
+
+			System.out.println(ifItemAdded);
+
+			/*int price =itemManagement.getPriceOfItem("soeap");
+			System.out.println("Price of soap ="+price);
+
+			String measurement =itemManagement.getMeasurementOfItem("soeap");
+			System.out.println("Measurement :"+measurement);*/
+
+
+			testAddStoreItem();
+
+
+			//System.out.println(total);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void testAddStoreItem(){
+		BillingManagement billingManagement =new BillingManagement();
+		System.out.println("Item             Quantity");
+		System.out.println("----             ---------");
+		billingManagement.addTocart("sugar",3);
+		billingManagement.addTocart("soap",6);
+		billingManagement.addTocart("pencil",5);
+
+	}
+}

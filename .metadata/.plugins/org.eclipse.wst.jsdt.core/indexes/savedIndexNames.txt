@@ -1,0 +1,6 @@
+INDEX VERSION 1.3+C:\ANU\StoreProject\WORKSPACE-1\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3267429998.index
+2265857416.index
+1231333694.index
+3433713903.index
+133142738.index
