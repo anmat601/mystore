@@ -2,12 +2,15 @@ package mystore.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import mystore.bean.BeanManager;
 import mystore.service.ItemManagement;
 
 
@@ -17,7 +20,8 @@ import mystore.service.ItemManagement;
 @WebServlet("/FirstServlet")
 public class FirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -33,13 +37,11 @@ public class FirstServlet extends HttpServlet {
 		//MyStoreApplication myStore =new MyStoreApplication();
 		// TODO Auto-generated method stub
 
-		String itemName =request.getParameter("itemName");
 		PrintWriter writer =response.getWriter();
+		  String itemName = request.getParameter("itemName");
 		writer.append(itemName);
-		int price =	ItemManagement.getInstance().getPriceOfItem(itemName);
-		System.out.println(itemName);
-		System.out.println(price);
-		response.getWriter().println("Price of the item: "+price);
+		int price =((ItemManagement)BeanManager.getContext().getBean("itemManagement")).getPriceOfItem(itemName);
+		response.getWriter().append("Price of the item: "+price);
 	}
 
 	/**

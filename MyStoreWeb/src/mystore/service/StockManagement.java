@@ -11,11 +11,12 @@ import mystore.model.StoreDetails;
 
 public class StockManagement {
 
+	private ItemManagement itemManagement;
 	//this method returns the list of items needed to be refilled for the given vendor
 	public List<String> ItemsToBeRefilled(String vendorName)
 	{
 		List<String> itemsToBeRefilled =new ArrayList<String>();
-		StoreDetails storeDetails =ItemManagement.getInstance().getStoreDetails();
+		StoreDetails storeDetails =itemManagement.getStoreDetails();
 		boolean vendorFound=false;
 		ItemData item;
 		boolean shortInStock =false;
@@ -51,5 +52,11 @@ public class StockManagement {
 			System.out.println("No items of this vendor found");
 		}
 		return itemsToBeRefilled;
+	}
+	public ItemManagement getItemManagement() {
+		return itemManagement;
+	}
+	public void setItemManagement(ItemManagement itemManagement) {
+		this.itemManagement = itemManagement;
 	}
 }

@@ -1,5 +1,7 @@
 package mystore.service;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -10,11 +12,11 @@ import mystore.model.ItemData;
 import mystore.model.StoreDetails;
 
 public class ItemManagement {
-
+/*
 	private static ItemManagement itemManagement;
 	private ItemManagement()
 	{
-		
+
 	}
 	public static ItemManagement getInstance()
 	{
@@ -23,7 +25,7 @@ public class ItemManagement {
 			itemManagement =new ItemManagement();
 		}
 		return itemManagement;
-	}
+	}*/
 	public StoreDetails getStoreDetails()
 	{
 		StoreDetails storeDetails = null;
@@ -186,6 +188,18 @@ public class ItemManagement {
 			e.printStackTrace();
 		}
 		return measurement;
+	}
+	
+	public List<String> GetAllItems()
+	{
+		List<String> items =new ArrayList<String>();
+		StoreDetails storeDetails =getStoreDetails();
+
+		for(int i=0;i<storeDetails.getItemList().size();i++)
+		{
+			items.add(storeDetails.getItemList().get(i).getItemName());
+		}
+		return items;
 	}
 }
 

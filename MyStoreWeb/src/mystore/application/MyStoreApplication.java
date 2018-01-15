@@ -11,15 +11,22 @@ import mystore.model.StockDetails;
 import mystore.service.StockManagement;
 import mystore.service.BillingManagement;
 import mystore.service.ItemManagement;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MyStoreApplication {
-
+	private static ApplicationContext context;
 	public static void main(String[] args) {
 		//getItemsRefillInfo();
 		//testAddItemToCart();
 		//testAddItem();
-		testGetPrice();
+		//testGetPrice();
 		//testGetMeasurement();	
+		 
+		 context =new ClassPathXmlApplicationContext("Beans.xml");
+		
+		 testGetAllItems();
+		 
 	} 
 	
 	private static void getItemsRefillInfo()
@@ -57,18 +64,18 @@ public class MyStoreApplication {
 		pencilStockDetails.setMinimumExpectedStock(50);
 		pencilStockDetails.setSupplier("GrocerySupplier.com");
 		//storeDetails.getItemList().add(pencil);
-		Boolean ifItemAdded =ItemManagement.getInstance().addItem(pencil);
+		Boolean ifItemAdded =((ItemManagement)context.getBean("itemManagement")).addItem(pencil);
 	}
 
 	private static void testGetPrice()
 	{
-		int price =ItemManagement.getInstance().getPriceOfItem("soap");
+		int price =((ItemManagement)context.getBean("itemManagement")).getPriceOfItem("soap");
 		System.out.println("Price of soap ="+price);
 	}
 
 	private static void testGetMeasurement()
 	{
-		String measurement =ItemManagement.getInstance().getMeasurementOfItem("soap");
+		String measurement =((ItemManagement)context.getBean("itemManagement")).getMeasurementOfItem("soap");
 		System.out.println("Measurement :"+measurement);
 	}
 
@@ -76,8 +83,17 @@ public class MyStoreApplication {
 		
 		System.out.println("Item             Quantity");
 		System.out.println("----             ---------");
-		BillingManagement.getInstance().addTocart("sugar",3);
-		BillingManagement.getInstance().addTocart("soap",6);
-		BillingManagement.getInstance().addTocart("pencil",5);
+		((BillingManagement)context.getBean("billingManagement")).addTocart("sugar",3);
+		((BillingManagement)context.getBean("billingManagement")).addTocart("soap",6);
+		((BillingManagement)context.getBean("billingManagement")).addTocart("pencil",5);
+	}
+	
+	private static void testGetAllItems()
+	{
+		List<String> items =((ItemManagement)context.getBean("itemManagement")).GetAllItems();
+		for(int i=0;i<items.size();i++)
+		{
+			System.out.println(items.get(i));
+		}
 	}
 }

@@ -15,19 +15,12 @@ import mystore.model.ItemData;
 import mystore.model.StoreDetails;
 
 public class BillingManagement {
+	private ItemManagement itemManagement;
 
 	private int total;
 	private static HashMap<String,Integer> itemsInCart = new HashMap<String,Integer>();
-	private static BillingManagement instance;
-	private BillingManagement(){
-		
-	}
-	public static BillingManagement getInstance(){
-		if(instance==null){
-			instance=new BillingManagement();
-		}
-		return instance;
-	}
+	
+	
 	
  
 	/**
@@ -39,7 +32,7 @@ public class BillingManagement {
 	{
 		try
 		{ 
-			StoreDetails storeDetails =ItemManagement.getInstance().getStoreDetails();
+			StoreDetails storeDetails =itemManagement.getStoreDetails();
 
 			itemsInCart.put(itemName, count);
 
@@ -49,7 +42,7 @@ public class BillingManagement {
 				System.out.println(""+entry.getKey()+"                "+ entry.getValue());
 			}
 
-			ItemData item =ItemManagement.getInstance().getItem(itemName);
+			ItemData item =itemManagement.getItem(itemName);
 
 			total +=(item.getPrice())*count;
 
@@ -60,6 +53,12 @@ public class BillingManagement {
 		{
 			e.printStackTrace();
 		}
+	}
+	public ItemManagement getItemManagement() {
+		return itemManagement;
+	}
+	public void setItemManagement(ItemManagement itemManagement) {
+		this.itemManagement = itemManagement;
 	}
 }
 
