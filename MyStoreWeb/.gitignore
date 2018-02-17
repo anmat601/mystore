@@ -1,6 +1,7 @@
 
-.metadata
-
-.recommenders
-MyStoreWeb\build
-MyStoreWeb\target
+build
+target
+.settings
+.project
+src\myStore.properties
+.project
