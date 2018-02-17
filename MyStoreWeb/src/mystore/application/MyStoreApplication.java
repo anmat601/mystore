@@ -90,7 +90,7 @@ public class MyStoreApplication {
 	
 	private static void testGetAllItems()
 	{
-		List<String> items =((ItemManagement)context.getBean("itemManagement")).GetAllItems();
+		List<ItemData> items =((ItemManagement)context.getBean("itemManagement")).GetAllItems();
 		for(int i=0;i<items.size();i++)
 		{
 			System.out.println(items.get(i));

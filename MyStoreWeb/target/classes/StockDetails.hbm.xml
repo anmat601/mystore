@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="mystore.model.StockDetails" table="Stock_Details">
+		<id name="itemName" type="string" column="item_name">
+		</id>
+		<one-to-one name="itemData" class="mystore.model.ItemData"
+			></one-to-one>
+		<property name="availableStock" column="available_stock" type="int" />
+		<property name="minimumExpectedStock" column="minExpected_stock" type="int" />
+		<property name="supplier" column="supplier" type="string" />
+	</class>
+</hibernate-mapping>  
+

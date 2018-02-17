@@ -1,0 +1,13 @@
+mystore\web\FirstServlet.class
+mystore\dao\ItemDataDao.class
+mystore\service\ItemManagement.class
+mystore\service\BillingManagement.class
+mystore\model\StoreDetails.class
+mystore\model\StockDetails.class
+mystore\model\ItemData.class
+mystore\application\MyStoreApplication.class
+mystore\bean\BeanManager.class
+MyStoreServlet\MyStoreApplicationServlet.class
+mystore\service\StockManagement.class
+MyStoreWeb\ItemServlet.class
+MyStoreWeb\myservlet.class

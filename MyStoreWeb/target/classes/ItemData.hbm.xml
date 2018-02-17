@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC  
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="mystore.model.ItemData" table="Item_Data">
+		<id name="itemName" type="string" column="item_name">
+		</id>
+		<property name="price" column="item_price" type="int" />
+		<property name="measurement" column="item_measurement" type="string" />
+		<!-- <one-to-one name="stockDetails" class="mystore.model.StockDetails "
+			cascade="save-update"></one-to-one> -->
+	</class>
+</hibernate-mapping>  

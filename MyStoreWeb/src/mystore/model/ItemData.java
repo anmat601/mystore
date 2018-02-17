@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ItemData{
+public class ItemData implements java.io.Serializable{
 	
 		private String itemName;
 		private int price;
@@ -56,8 +56,8 @@ public class ItemData{
 	        /*return "ItemData:: itemName=" + this.itemName + " Price=" + this.price + " measurement=" + this.measurement+
 	        		" StockDetails.availablestock=" + this.stockDetails.getAvailableStock();*/
 	        
-	        return "ItemData:: itemName=" + this.itemName + " Price=" + this.price + " measurement=" + this.measurement+
-	        		" StockDetails=" + this.stockDetails.toString();
+	        return "ItemData:: itemName=" + this.itemName + " Price=" + this.price + " measurement=" + this.measurement;
+
 	    }
 
 		public StockDetails getStockDetails() {

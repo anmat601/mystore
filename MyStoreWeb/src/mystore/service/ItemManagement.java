@@ -8,10 +8,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import mystore.bean.BeanManager;
+import mystore.dao.ItemDataDao;
 import mystore.model.ItemData;
 import mystore.model.StoreDetails;
 
 public class ItemManagement {
+	private ItemDataDao itemDataDao;
 /*
 	private static ItemManagement itemManagement;
 	private ItemManagement()
@@ -190,16 +193,26 @@ public class ItemManagement {
 		return measurement;
 	}
 	
-	public List<String> GetAllItems()
+	public List<ItemData> GetAllItems()
 	{
-		List<String> items =new ArrayList<String>();
-		StoreDetails storeDetails =getStoreDetails();
+		/*	StoreDetails storeDetails =getStoreDetails();
 
 		for(int i=0;i<storeDetails.getItemList().size();i++)
 		{
 			items.add(storeDetails.getItemList().get(i).getItemName());
-		}
+		}*/
+		List<ItemData> items =new ArrayList<ItemData>();
+		items = itemDataDao.getItemData();
 		return items;
+		
+	}
+
+	public ItemDataDao getItemDataDao() {
+		return itemDataDao;
+	}
+
+	public void setItemDataDao(ItemDataDao itemDataDao) {
+		this.itemDataDao = itemDataDao;
 	}
 }
 

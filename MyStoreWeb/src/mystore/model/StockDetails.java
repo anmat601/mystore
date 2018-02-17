@@ -5,12 +5,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @XmlRootElement
-public class StockDetails {
+public class StockDetails implements java.io.Serializable{
 
 	
 	private int availableStock;
 
-	
+	private int itemName;
+	private ItemData itemData;
 	private int minimumExpectedStock;
 
 	
@@ -43,6 +44,22 @@ public class StockDetails {
     public String toString() {
         return "StockDetails:: Available Stock=" + this.availableStock+ " Minimum Expected Stock=" + this.minimumExpectedStock + " Supplier=" + this.supplier ;
     }
+
+	public int getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(int itemName) {
+		this.itemName = itemName;
+	}
+
+	public ItemData getItemData() {
+		return itemData;
+	}
+
+	public void setItemData(ItemData itemData) {
+		this.itemData = itemData;
+	}
 	
 	
 }

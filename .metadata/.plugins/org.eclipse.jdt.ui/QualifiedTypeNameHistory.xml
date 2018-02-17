@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="mystore.service.StockManagement"/>
-<fullyQualifiedTypeName name="mystore.service.ItemManagement"/>
 <fullyQualifiedTypeName name="mystore.model.StockDetails"/>
 <fullyQualifiedTypeName name="mystore.model.StoreDetails"/>
 <fullyQualifiedTypeName name="mystore.service.BillingManagement"/>
@@ -12,4 +11,6 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="mystore.service.ItemManagement"/>
+<fullyQualifiedTypeName name="mystore.bean.BeanManager"/>
 </qualifiedTypeNameHistroy>
