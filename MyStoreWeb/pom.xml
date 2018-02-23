@@ -8,7 +8,7 @@
 	<name>MyStoreWebMaven</name>
 	<dependencies>
 			<dependency>
-				<groupId>org.springframework</groupId>
+				<groupId>org.springframework</groupId>	
 				<artifactId>spring-core</artifactId>
 				<version>4.1.6.RELEASE</version>
 			</dependency>
@@ -40,6 +40,30 @@
     <artifactId>spring-context</artifactId>
     <version>4.1.6.RELEASE</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf -->
+<dependency>
+    <groupId>org.apache.cxf</groupId>
+    <artifactId>cxf</artifactId>
+    <version>3.2.2</version>
+    <type>pom</type>
+</dependency>
+<dependency>
+    <groupId>org.apache.cxf</groupId>
+    <artifactId>cxf-rt-frontend-jaxws</artifactId>
+    <version>3.2.2</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.cxf</groupId>
+    <artifactId>cxf-rt-transports-http</artifactId>
+    <version>3.2.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.6</version>
+</dependency>
+
 		</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
