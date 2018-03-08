@@ -12,16 +12,18 @@ import mystore.bean.BeanManager;
 import mystore.dao.ItemDataDao;
 import mystore.model.ItemData;
 import mystore.model.StoreDetails;
+import javax.jws.WebService;
 
-public class ItemManagement {
+@WebService(endpointInterface = "mystore.service.ItemManagementInterface")
+public class ItemManagement implements ItemManagementInterface {
 	private ItemDataDao itemDataDao;
-/*
+	/*
 	private static ItemManagement itemManagement;
 	private ItemManagement()
 	{
 
 	}
-	public static ItemManagement getInstance()
+	public static ItemManagement getInstance()//Singleton
 	{
 		if(null==itemManagement)
 		{
@@ -192,7 +194,7 @@ public class ItemManagement {
 		}
 		return measurement;
 	}
-	
+
 	public List<ItemData> GetAllItems()
 	{
 		/*	StoreDetails storeDetails =getStoreDetails();
@@ -204,7 +206,7 @@ public class ItemManagement {
 		List<ItemData> items =new ArrayList<ItemData>();
 		items = itemDataDao.getItemData();
 		return items;
-		
+
 	}
 
 	public ItemDataDao getItemDataDao() {

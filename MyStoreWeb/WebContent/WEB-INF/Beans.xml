@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<bean id="itemManagement" class="mystore.service.ItemManagement">
+		<property name="itemDataDao" ref="itemDataDao" />
+	</bean>
+	<jaxws:endpoint id="itemEndpoint" implementor="#itemManagement"
+		address="/itemInterface" />
+	<bean id="billingManagement" class="mystore.service.BillingManagement">
+		<property name="itemManagement" ref="itemManagement" />
+	</bean>
+	<bean id="stockManagement" class="mystore.service.StockManagement">
+		<property name="itemManagement" ref="itemManagement" />
+	</bean>
+	<bean id="beanManager" class="mystore.bean.BeanManager">
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:myStore.properties"></property>
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.userName}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	<bean id="mysessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingResources">
+			<list>
+				<value>ItemData.hbm.xml</value>
+				<!-- <value>StockDetails.hbm.xml</value> -->
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="template" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="mysessionFactory"></property>
+	</bean>
+
+	<bean id="itemDataDao" class="mystore.dao.ItemDataDao">
+		<property name="template" ref="template"></property>
+	</bean>
+	<bean id="client" factory-bean="clientFactory" factory-method="create" />
+	<bean id="clientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="net.webservicex.GlobalWeatherSoap" />
+		<property name="address"
+			value="http://www.webservicex.net/globalweather.asmx" />
+	</bean>
+</beans>

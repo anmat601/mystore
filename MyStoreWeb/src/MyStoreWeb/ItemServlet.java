@@ -1,6 +1,8 @@
 package MyStoreWeb;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,7 @@ import java.util.List;
 /**
  * Servlet implementation class ItemServlet
  */
-@WebServlet("/ItemServlet")
+//@WebServlet("/ItemServlet")
 public class ItemServlet extends HttpServlet {
 	final static Logger logger = LogManager.getLogger(ItemServlet.class);
 	private static final long serialVersionUID = 1L;
@@ -43,18 +45,19 @@ public class ItemServlet extends HttpServlet {
 		try{  
 
 			List<ItemData> itemList =new ArrayList<ItemData>();
-			logger.debug("This is debug");
-			logger.info("this is info");
-			logger.warn("this is warning");
-			logger.trace("this is trace");
-			logger.error("this is error");
+
 			itemList =((ItemManagement)BeanManager.getContext().getBean("itemManagement")).GetAllItems();
 
 			for(int i=0;i<itemList.size();i++)
 			{
 				System.out.println(itemList.get(i));
 			}
-
+			
+		/*	PrintWriter writer =response.getWriter();
+			String itemName = request.getParameter("itemName");
+			writer.append(itemName);
+			int price =((ItemManagement)BeanManager.getContext().getBean("itemManagement")).getPriceOfItem(itemName);
+			response.getWriter().append("Price of the item: "+price);*/
 
 			//Connection con =((DriverManagerDataSource)BeanManager.getContext().getBean("dataSource")).getConnection();
 			//Connection con=DriverManager.getConnection(  
