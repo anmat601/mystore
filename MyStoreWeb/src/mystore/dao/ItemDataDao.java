@@ -23,4 +23,12 @@ public class ItemDataDao {
 	    list=template.loadAll(ItemData.class);  
 	    return list;  
 	}  
+	
+	public ItemData getItem(String itemName)
+	{
+		ItemData item =new ItemData();
+		item = template.get(ItemData.class,itemName);
+		return item;
+	}
+	
 }

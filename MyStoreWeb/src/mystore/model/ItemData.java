@@ -1,4 +1,4 @@
-package mystore.model;
+ package mystore.model;
 import java.util.ArrayList;
 import java.util.List;
 

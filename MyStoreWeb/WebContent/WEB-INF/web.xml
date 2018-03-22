@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-<servlet>
-    <servlet-name>myservlet1</servlet-name>
-    <servlet-class>MyStoreWeb.GetCitiesByCountryServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>myservlet1</servlet-name>
-    <url-pattern>/hello</url-pattern>
-</servlet-mapping>
-<servlet>
-    <servlet-name>itemServlet</servlet-name>
-    <servlet-class>MyStoreWeb.ItemServlet</servlet-class>
-</servlet> 
-<servlet-mapping>
-    <servlet-name>itemServlet</servlet-name>
-    <url-pattern>/ItemServlet</url-pattern>
-</servlet-mapping>
-<servlet>
-    <servlet-name>cxf</servlet-name>
-    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-</servlet>
-    <servlet-mapping>
-    <servlet-name>cxf</servlet-name>
-    <url-pattern>/services/*</url-pattern>
-</servlet-mapping>
-<context-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/Beans.xml</param-value>
-   </context-param>
-   <listener>
-      <listener-class>
-         org.springframework.web.context.ContextLoaderListener
-      </listener-class>
-   </listener>
+	<servlet>
+		<servlet-name>myservlet1</servlet-name>
+		<servlet-class>MyStoreWeb.GetCitiesByCountryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>myservlet1</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>itemServlet</servlet-name>
+		<servlet-class>MyStoreWeb.ItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>itemServlet</servlet-name>
+		<url-pattern>/ItemServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>cxf</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cxf</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/Beans.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
 </web-app>

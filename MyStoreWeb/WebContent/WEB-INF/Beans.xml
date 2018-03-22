@@ -1,9 +1,20 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+http://cxf.apache.org/jaxws
+http://cxf.apache.org/schemas/jaxws.xsd">
+	<context:component-scan base-package="mystore.controller" />
+	<mvc:annotation-driven />
 	<bean id="itemManagement" class="mystore.service.ItemManagement">
 		<property name="itemDataDao" ref="itemDataDao" />
 	</bean>
@@ -15,6 +26,9 @@
 	<bean id="stockManagement" class="mystore.service.StockManagement">
 		<property name="itemManagement" ref="itemManagement" />
 	</bean>
+	<!-- <bean id="itemManagementController" class="mystore.controller.ItemManagementController">
+		<property name="itemManagement" ref="itemManagement" />
+	</bean> -->
 	<bean id="beanManager" class="mystore.bean.BeanManager">
 	</bean>
 	<bean
