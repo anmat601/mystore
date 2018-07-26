@@ -2,35 +2,29 @@ package mystore.service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 import mystore.bean.BeanManager;
+import mystore.controller.ItemManagementController;
 import mystore.dao.ItemDataDao;
 import mystore.model.ItemData;
 import mystore.model.StoreDetails;
 import javax.jws.WebService;
 
+
 @WebService(endpointInterface = "mystore.service.ItemManagementInterface")
+@Transactional
+
 public class ItemManagement implements ItemManagementInterface {
 	private ItemDataDao itemDataDao;
-	/*
-	private static ItemManagement itemManagement;
-	private ItemManagement()
-	{
+	final static Logger logger = LogManager.getLogger(ItemManagement.class);
 
-	}
-	public static ItemManagement getInstance()//Singleton
-	{
-		if(null==itemManagement)
-		{
-			itemManagement =new ItemManagement();
-		}
-		return itemManagement;
-	}*/
+
 	public StoreDetails getStoreDetails()
 	{
 		StoreDetails storeDetails = null;
@@ -47,21 +41,25 @@ public class ItemManagement implements ItemManagementInterface {
 		return storeDetails;
 	}
 
+
 	public void updateStoreDetails()
-	{ try 
-	{
-		File file1 = new File("C:/Users/eldho/Desktop/storeDetails.xml");
-		JAXBContext jaxbContext1 = JAXBContext.newInstance(StoreDetails.class);
-		Marshaller jaxbMarshaller = jaxbContext1.createMarshaller();
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		StoreDetails storeDetails = null;
-		jaxbMarshaller.marshal(storeDetails, file1);
-		jaxbMarshaller.marshal(storeDetails, System.out);
-	} catch (JAXBException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	{ 
+		try 
+		{
+			File file1 = new File("C:/Users/eldho/Desktop/storeDetails.xml");
+			JAXBContext jaxbContext1 = JAXBContext.newInstance(StoreDetails.class);
+			Marshaller jaxbMarshaller = jaxbContext1.createMarshaller();
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			StoreDetails storeDetails = null;
+			jaxbMarshaller.marshal(storeDetails, file1);
+			jaxbMarshaller.marshal(storeDetails, System.out);
+		} catch (JAXBException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	}
+
 
 	public ItemData getItem(String itemName) throws Exception
 	{
@@ -77,23 +75,24 @@ public class ItemManagement implements ItemManagementInterface {
 		return item;
 	}
 
-	public boolean addItem(ItemData item)
-	{	
-		boolean ifItemAdded;
 
-		StoreDetails storeDetails =getStoreDetails();
+	public boolean validate(ItemData item)
+	{
+		boolean itemValid = false;
+		boolean itemExist =false;
 		boolean itemAlreadyExist=false;
 		boolean noItemName=false;
 		boolean noPrice=false;
 		boolean noMeasurement=false;
-
-		for(int i=0;i<storeDetails.getItemList().size();i++)
+		try
 		{
-			ItemData storeItem =storeDetails.getItemList().get(i);
-
-			if(storeItem.getItemName().equals(item.getItemName()))
+			if(item.equals(null))
 			{
-				itemAlreadyExist =true;
+				itemExist=false;
+			}
+			else
+			{
+				itemExist=true;
 			}
 			if(item.getItemName()==null)
 			{
@@ -107,37 +106,68 @@ public class ItemManagement implements ItemManagementInterface {
 			{
 				noMeasurement=true;
 			}
+			if((itemExist)
+					&&!noItemName
+					&&!noPrice
+					&&!noMeasurement)
+			{
+				List<ItemData> itemList=new ArrayList<ItemData>();
+				itemList =GetAllItems();
+				for(int i=0;i<itemList.size();i++)
+				{
+					if(item.getItemName().equals(itemList.get(i).getItemName()))
+					{
+						itemAlreadyExist =true;
+					}
+				}
+			}
+			if((itemExist)
+					&&!itemAlreadyExist
+					&&!noItemName
+					&&!noPrice
+					&&!noMeasurement)
+			{
+				itemValid=true;
+			}
+			if(!itemExist)
+			{
+				logger.debug("No Item data entered");
+			}
+			if(itemAlreadyExist)
+			{
+				logger.debug("The entered item already exist");
+			}
+			if(noItemName)
+			{
+				logger.debug(" name of the item not entered");
+			}
+			if(noPrice)
+			{
+				logger.debug("price of the item not entered");
+			}
+			if(noMeasurement)
+			{
+				logger.debug("measurement field of the item not entered");
+			}
 		}
-		if(!itemAlreadyExist
-				&&!noItemName
-				&&!noPrice
-				&&!noMeasurement)
+		catch(Exception e)
 		{
-			storeDetails.getItemList().add(item);
-			updateStoreDetails();
+			e.printStackTrace();
 		}
-		if(itemAlreadyExist)
-		{
-			System.out.println();
-			System.out.println("THE ENTERED ITEM ALREADY EXIST");
-		}
-		if(noItemName==true)
-		{
-			System.out.println(" name of the item not entered");
-		}
-		if(noPrice==true)
-		{
-			System.out.println("price of the item not entered");
-		}
-		if(noMeasurement==true)
-		{
-			System.out.println("measurement field of the item not entered");
-		}
-
-
-		ifItemAdded =true;
-		return ifItemAdded;
+		return itemValid;
 	}
+
+
+	public void addItem(ItemData item)
+	{     
+
+		boolean itemValid=validate(item);
+		if(itemValid==true)
+		{
+			itemDataDao.saveItemData(item);
+		}
+	}
+
 
 	public int getPriceOfItem(String itemName)
 	{
@@ -167,6 +197,7 @@ public class ItemManagement implements ItemManagementInterface {
 		return price;
 	}
 
+
 	public String getMeasurementOfItem(String itemName)
 	{
 		String measurement = null;
@@ -195,18 +226,16 @@ public class ItemManagement implements ItemManagementInterface {
 		return measurement;
 	}
 
+
+	/**
+	 * ghjghjghjghj
+	 * @return return blah is wjkljkl
+	 */
 	public List<ItemData> GetAllItems()
 	{
-		/*	StoreDetails storeDetails =getStoreDetails();
-
-		for(int i=0;i<storeDetails.getItemList().size();i++)
-		{
-			items.add(storeDetails.getItemList().get(i).getItemName());
-		}*/
 		List<ItemData> items =new ArrayList<ItemData>();
 		items = itemDataDao.getItemData();
 		return items;
-
 	}
 
 	public ItemDataDao getItemDataDao() {

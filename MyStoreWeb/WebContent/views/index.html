@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>KnowYourStore</title>
+<script type="text/javascript" src="../scripts/angular.min.js">
+	
+</script>
+<script type="text/javascript" src="../kysApp/kysApp.js">
+	
+</script>
+<script type="text/javascript" src="../controllers/kysMainController.js">
+	
+</script>
+
+</head>
+<body>
+	<div ng-app="kysApp" ng-controller="kysMainController">
+		<h1>KnowYourStore</h1>
+		<button ng-click="showAllItems()">ShowAllItems</button>
+		<table ng-show="items.length>0&&items!=undefined">
+			<tr>
+				<th>ItemName</th>
+				<th>Price</th>
+				<th>Measurement</th>
+			</tr>
+			<tr ng-repeat="x in items">
+				<td>{{x.itemName}}</td>
+				<td>{{x.price}}</td>
+				<td>{{x.measurement}}</td>
+			</tr>
+		</table>
+		<style>
+table, th, td {
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #f1f1f1;
+}
+
+table tr:nth-child(even) {
+	background-color: #ffffff;
+}
+</style>
+		<button ng-click="myFunction()">Add Item</button>
+		<div id="formDiv" ng-show ="add==1">
+			<form addItem>
+				<br> Item Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+					type="text" ng-model="itemData.itemName"><br> <br>
+				Price:
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="number" ng-model="itemData.price"> <br> <br>
+				Measurement: &nbsp;&nbsp; <input type="text"
+					ng-model="itemData.measurement"><br>
+				<br>
+				<button ng-click="addItem()">ADD</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+

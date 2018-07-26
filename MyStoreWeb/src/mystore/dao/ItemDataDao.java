@@ -14,7 +14,9 @@ public class ItemDataDao {
 	}  
 	//method to save ItemData  
 	public void saveItemData(ItemData itemData){  
-	    template.save(itemData);  
+		template.setCheckWriteOperations(false);
+	    template.save(itemData); 
+	    System.out.println("Item added");
 	}  
 	
 	//method to return all ItemData
